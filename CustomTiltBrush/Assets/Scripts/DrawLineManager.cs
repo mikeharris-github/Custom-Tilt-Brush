@@ -23,7 +23,7 @@ public class DrawLineManager : MonoBehaviour {
 
             //set the material to use when the trigger is touched
             currLine.lmat = lMat;
-            numClicks = 0;
+
         }
         else if (device.GetTouch(SteamVR_Controller.ButtonMask.Trigger))
         {
@@ -33,7 +33,11 @@ public class DrawLineManager : MonoBehaviour {
             currLine.AddPoint(trackedObj.transform.position);
             numClicks++;
         }
-
+        else if (device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger)) //if trigger is held
+        {
+            numClicks = 0;
+            currLine = null;
+        }
         if (currLine != null) //if current line does not equal null
         {
             currLine.lmat.color = ColorManager.Instance.GetCurrentColor(); //current line material color equals color manager's current color
