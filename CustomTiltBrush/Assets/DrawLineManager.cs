@@ -17,9 +17,10 @@ public class DrawLineManager : MonoBehaviour {
         {
             // this logic is taken from the MeshLineRenderer script
             GameObject go = new GameObject();
-            currLine = go.AddComponent<MeshLineRenderer>();
             go.AddComponent<MeshFilter>();
             go.AddComponent<MeshRenderer>();
+            currLine = go.AddComponent<MeshLineRenderer>();
+
             //set the material to use when the trigger is touched
             currLine.lmat = lMat;
             numClicks = 0;
@@ -31,6 +32,11 @@ public class DrawLineManager : MonoBehaviour {
 
             currLine.AddPoint(trackedObj.transform.position);
             numClicks++;
+        }
+
+        if (currLine != null) //if current line does not equal null
+        {
+            currLine.lmat.color = ColorManager.Instance.GetCurrentColor(); //current line material color equals color manager's current color
         }
     }
 }
